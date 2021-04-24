@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "test": "jest",
-    "lint": "prettier --check . && npx eslint . --ext .js,.ts && npx tsc --noEmit src/ts/**/**/*.ts",
+    "lint": "prettier --check . && npx eslint . --ext .js,.ts && npx tsc --noEmit src/**/*.ts",
     "lint:fix": "prettier --write . && eslint . --ext .js,.ts --fix"
   },
   "keywords": [],
