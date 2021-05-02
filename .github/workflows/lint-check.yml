@@ -1,6 +1,6 @@
 name: Linter check
 
-on: pull_request
+on: [push]
 
 jobs:
   lint:

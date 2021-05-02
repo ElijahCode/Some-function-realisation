@@ -14,7 +14,7 @@ function sum(
 describe("Testing curryFunc function", () => {
   const currySum = curryFunc(sum);
 
-  it("Must return 21", () => {
+  it("currySum must return 21", () => {
     expect(currySum(1, 2, 3, 4, 5, 6)).toBe(21);
     expect(currySum(1, 2, 3)(4, 5, 6)).toBe(21);
     expect(currySum(1, 2)(3, 4)(5, 6)).toBe(21);

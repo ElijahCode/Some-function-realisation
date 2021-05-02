@@ -1,25 +1,20 @@
-/* export function adderFunc (): Function | number  {
-    function next (...args: number[]): number | Function {
-      return function check(x: number): number | Function {
-        if (!x) {
-          return args.reduce((acc: number, a: number) => {
-            return acc + a;
-          }, 0);
-        }
-        return next(...args, x);
-      };
-    };
-    return next();
-}; */
+export interface IAdderFunc {
+  (numb: number): IAdderFunc;
+  (): string;
+}
+
+export function adderFunc(numb?: number): IAdderFunc;
 
 export function adderFunc(addToSum = 0): Function {
   let resultSum: number = addToSum;
 
-  function sum(numb: number): Function | string {
+  function sum(numb: number | undefined): Function | string {
     resultSum = resultSum === 0 ? addToSum : resultSum;
 
     if (!numb) {
-      return `${resultSum}`;
+      const returnedRes = resultSum;
+      resultSum = 0;
+      return `${returnedRes}`;
     }
 
     resultSum += numb;
