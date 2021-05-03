@@ -8,13 +8,13 @@ export function adderFunc(numb?: number): IAdderFunc;
 export function adderFunc(addToSum = 0): Function {
   let resultSum: number = addToSum;
 
-  function sum(numb: number | undefined): Function | string {
+  function sum(numb: number | undefined): Function | number {
     resultSum = resultSum === 0 ? addToSum : resultSum;
 
     if (!numb) {
       const returnedRes = resultSum;
       resultSum = 0;
-      return `${returnedRes}`;
+      return returnedRes;
     }
 
     resultSum += numb;
@@ -25,6 +25,12 @@ export function adderFunc(addToSum = 0): Function {
     const result: number = resultSum;
     resultSum = 0;
     return `${result}`;
+  };
+
+  sum.valueOf = function returnValueSum(): number {
+    const result: number = resultSum;
+    resultSum = 0;
+    return result;
   };
 
   return sum;

@@ -1,9 +1,9 @@
-export function curryFunc(fun: (...args: number[]) => number): Function {
-  function curry(...args: number[]): number | Function {
+export function curryFunc(fun: Function): Function {
+  function curry(...args: any[]): Function {
     if (args.length >= fun.length) {
       return fun.apply(fun, args);
     }
-    return function nextStep(...args2: number[]): number | Function {
+    return function nextStep(...args2: any[]): Function {
       return curry.apply(fun, args.concat(args2));
     };
   }
