@@ -1,28 +1,34 @@
-export class Parallel{
-    constructor(private flows: number, public result: number[] = []) {}
+export class Parallel {
+  private flows: number;
 
-    public async jobs(...fun: Function[]): Promise<number[]>{
+  public result: number[];
 
-        const jobs: Function[] = fun;
-        
-        const runOn = async (promise: Promise<number>) => {
-            const data = await promise;
-            
-            this.result = this.result.concat(data);
+  constructor(flows: number, result: number[] = []) {
+    this.flows = flows;
+    this.result = result;
+  }
 
-            const job = jobs.shift();
+  public async jobs(...fun: Function[]): Promise<number[]> {
+    const jobs: Function[] = fun;
 
-            if(job) {
-                runOn(job());
-            }
-        }
+    const runOn = async (promise: Promise<number>) => {
+      const data = await promise;
 
-        for(let i = 0; i < this.flows; i += 1){
-            const job = jobs.shift()
-            if(job) {
-                runOn(job());
-            }
-        }
-        return this.result;``
-    }  
+      this.result = this.result.concat(data);
+
+      const job = jobs.shift();
+
+      if (job) {
+        runOn(job());
+      }
+    };
+
+    for (let i = 0; i < this.flows; i += 1) {
+      const job = jobs.shift();
+      if (job) {
+        runOn(job());
+      }
+    }
+    return this.result;
+  }
 }
