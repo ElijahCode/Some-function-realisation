@@ -14,6 +14,9 @@ describe("Testing adderFunc", () => {
   it("Return 6", () => {
     expect(sum(1)(2)(3).valueOf()).toBe(6);
   });
+  it("Return 6 with call sum(1)(2)(3)()", () => {
+    expect(sum(1)(2)(3)()).toBe(6);
+  });
 });
 
 describe("Testing adderFunc with init value", () => {
@@ -30,5 +33,8 @@ describe("Testing adderFunc with init value", () => {
   });
   it("Return 9", () => {
     expect(sum(1)(2)(3).valueOf()).toBe(9);
+  });
+  it("Return 9 with call sum(1)(2)(3)()", () => {
+    expect(sum(1)(2)(3)()).toBe(9);
   });
 });
