@@ -1,138 +1,68 @@
-type inputOutputData = number | string | Function | Object | boolean;
+type data = number | string | Function | Object | boolean;
 
 interface CurriedFunction1 {
-  (t1: number): inputOutputData;
+  (t1: number): data;
 }
 
 interface CurriedFunction2 {
-  (t1: inputOutputData, t2: inputOutputData): inputOutputData;
-  (t1: inputOutputData): CurriedFunction1;
+  (t1: data, t2: data): data;
+  (t1: data): CurriedFunction1;
 }
 
 interface CurriedFunction3 {
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData
-  ): inputOutputData;
-  (t1: inputOutputData, t2: inputOutputData): CurriedFunction1;
-  (t1: inputOutputData): CurriedFunction2;
+  (t1: data, t2: data, t3: data): data;
+  (t1: data, t2: data): CurriedFunction1;
+  (t1: data): CurriedFunction2;
 }
 
 interface CurriedFunction4 {
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData,
-    t4: inputOutputData
-  ): inputOutputData;
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData
-  ): CurriedFunction1;
-  (t1: inputOutputData, t2: inputOutputData): CurriedFunction2;
-  (t1: inputOutputData): CurriedFunction3;
+  (t1: data, t2: data, t3: data, t4: data): data;
+  (t1: data, t2: data, t3: data): CurriedFunction1;
+  (t1: data, t2: data): CurriedFunction2;
+  (t1: data): CurriedFunction3;
 }
 
 interface CurriedFunction5 {
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData,
-    t4: inputOutputData,
-    t5: inputOutputData
-  ): inputOutputData;
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData,
-    t4: inputOutputData
-  ): CurriedFunction1;
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData
-  ): CurriedFunction2;
-  (t1: inputOutputData, t2: inputOutputData): CurriedFunction3;
-  (t1: inputOutputData): CurriedFunction4;
+  (t1: data, t2: data, t3: data, t4: data, t5: data): data;
+  (t1: data, t2: data, t3: data, t4: data): CurriedFunction1;
+  (t1: data, t2: data, t3: data): CurriedFunction2;
+  (t1: data, t2: data): CurriedFunction3;
+  (t1: data): CurriedFunction4;
 }
 
 interface CurriedFunction6 {
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData,
-    t4: inputOutputData,
-    t5: inputOutputData,
-    t6: inputOutputData
-  ): inputOutputData;
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData,
-    t4: inputOutputData,
-    t5: inputOutputData
-  ): CurriedFunction1;
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData,
-    t4: inputOutputData
-  ): CurriedFunction2;
-  (
-    t1: inputOutputData,
-    t2: inputOutputData,
-    t3: inputOutputData
-  ): CurriedFunction3;
-  (t1: inputOutputData, t2: inputOutputData): CurriedFunction4;
-  (t1: inputOutputData): CurriedFunction5;
+  (t1: data, t2: data, t3: data, t4: data, t5: data, t6: data): data;
+  (t1: data, t2: data, t3: data, t4: data, t5: data): CurriedFunction1;
+  (t1: data, t2: data, t3: data, t4: data): CurriedFunction2;
+  (t1: data, t2: data, t3: data): CurriedFunction3;
+  (t1: data, t2: data): CurriedFunction4;
+  (t1: data): CurriedFunction5;
 }
 
-export type CurriedFunction<T> = T extends [
-  inputOutputData,
-  inputOutputData,
-  inputOutputData,
-  inputOutputData,
-  inputOutputData,
-  inputOutputData
-]
+export type CurriedFunction<T> = T extends [data, data, data, data, data, data]
   ? CurriedFunction6
-  : T extends [
-      inputOutputData,
-      inputOutputData,
-      inputOutputData,
-      inputOutputData,
-      inputOutputData
-    ]
+  : T extends [data, data, data, data, data]
   ? CurriedFunction5
-  : T extends [
-      inputOutputData,
-      inputOutputData,
-      inputOutputData,
-      inputOutputData
-    ]
+  : T extends [data, data, data, data]
   ? CurriedFunction4
-  : T extends [inputOutputData, inputOutputData, inputOutputData]
+  : T extends [data, data, data]
   ? CurriedFunction3
-  : T extends [inputOutputData, inputOutputData]
+  : T extends [data, data]
   ? CurriedFunction2
-  : T extends [inputOutputData, inputOutputData]
+  : T extends [data, data]
   ? CurriedFunction1
   : never;
 
-export function curryFunc<T extends inputOutputData[]>(
-  fn: (...args: T) => inputOutputData
+export function curryFunc<T extends data[]>(
+  fn: (...args: T) => data
 ): CurriedFunction<T>;
 
 export function curryFunc(fun: (...args: any[]) => any): any {
-  function curry<K extends inputOutputData[]>(...args: K): inputOutputData {
+  function curry<K extends data[]>(...args: K): data {
     if (args.length >= fun.length) {
       return fun.apply(fun, args);
     }
-    return function nextStep<V extends inputOutputData[]>(
-      ...args2: V
-    ): inputOutputData {
+    return function nextStep<V extends data[]>(...args2: V): data {
       return curry.apply(fun, args.concat(args2));
     };
   }
