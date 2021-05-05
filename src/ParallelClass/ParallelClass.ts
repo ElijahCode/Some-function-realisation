@@ -10,7 +10,6 @@ export class Parallel {
 
   public async jobs(...fun: Function[]): Promise<number[]> {
     const jobs: Function[] = fun;
-
     const runOn = async (promise: Promise<number>) => {
       const data = await promise;
 
